@@ -3,6 +3,7 @@
 # [1] Numerical Recipes in C by William H. Press, Brian P. Flannery, Saul A. Teukolsky, and William T. Vetterling 
 # [2] William H. Press, Saul A. Teukolsky; Kolmogorov‐Smirnov Test for Two‐Dimensional Data: How to tell whether a set of (x,y) data 
 # paints are consistent with a particular probability distribution, or with another data set. Comput. Phys. 1 July 1988; 2 (4): 74–77.
+# [3] G. Fasano, A. Franceschini, A multidimensional version of the Kolmogorov–Smirnov test, Monthly Notices of the Royal Astronomical Society, Volume 225, Issue 1, March 1987, Pages 155–170.
 
 # Author: Ray
 # Created date: 2024/09/28
