@@ -1,17 +1,16 @@
 ########## INS data Kolmogorov-Smirnov test ############ 
 ## References: 
 # [1] Numerical Recipes in C by William H. Press, Brian P. Flannery, Saul A. Teukolsky, and William T. Vetterling 
-# [2] William H. Press, Saul A. Teukolsky; Kolmogorov‐Smirnov Test for Two‐Dimensional Data: How to tell whether a set of (x,y) data 
-# paints are consistent with a particular probability distribution, or with another data set. Comput. Phys. 1 July 1988; 2 (4): 74–77.
+# [2] J. A. Peacock, Two-dimensional goodness-of-fit testing in astronomy, Monthly Notices of the Royal Astronomical Society, Volume 202, Issue 3, March 1983, Pages 615–627,
 # [3] G. Fasano, A. Franceschini, A multidimensional version of the Kolmogorov–Smirnov test, Monthly Notices of the Royal Astronomical Society, Volume 225, Issue 1, March 1987, Pages 155–170.
 
 # Author: Ray
 # Created date: 2024/09/28
-# Modified date: 2024/10/12
+# Modified date: 2024/10/12; 2024/10/20
 
 import os
 import numpy as np
-import pandas as pd
+#import pandas as pd
 from scipy.stats import pearsonr
 
 def getXY(filename, type="sim"):
@@ -64,7 +63,7 @@ def getXY(filename, type="sim"):
 
 def quadct(x, y, xx, yy):
     """
-    Given an origin (x, y), and an array of nn points with coordinates xx[1..nn] and yy[1..nn], count how many of them are in each quadrant around the origin, and return the normalized        fractions. Quadrants are labeled alphabetically, counterclockwise from the upper right. Used by ks2d1s and ks2d2s.
+    Given an origin (x, y), and an array of nn points with coordinates xx[1..nn] and yy[1..nn], count how many of them are in each quadrant around the origin, and return the normalized                 fractions. Quadrants are labeled with numbers, counterclockwise from the upper right. Used by ks2d2s # and (ks2d1s).
     Args:
     x: Reference x point 
     y: Reference y point
@@ -82,6 +81,7 @@ def quadct(x, y, xx, yy):
     n3 = 0 # The number of points in quadrant III
     n4 = 0 # The number of points in quadrant IV
     nn = len(xx) # The number of points in xx and yy array
+    
     # The loop below is to categorize the quadrants for all nn points.
     for k in range(1,nn):
         if yy[k] > y and xx[k] > x:
@@ -110,7 +110,6 @@ def probks(alam):
     Return:
     q (float): The significance level (The number is in between 0 and 1)
     """
-    
     coeff = 2.0
     a2 = -2.0 * alam * alam
     q = 0
@@ -139,8 +138,8 @@ def ks2d2s(filelist, typelist):
     typelist (list): A list saves the type of the files
     ##############
     Return:
-    d: K-S statistic 
-    prob: Significance level (Small value shows the two samples are significantly different)
+    d: K-S statistic (The maximum difference between 2 spectrums ranging both over data points and over quadrants.)
+    prob: Significance level (i.e. p-value. Small value shows the two samples are significantly different)
     """
     
     xx1, yy1 = getXY(filelist[0])
